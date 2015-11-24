@@ -83,7 +83,8 @@ public class ChooseLesson {
 
     public Boolean delOldLesson(String name){
 
-        List<LessonsPlan> lessonsPlans = LessonsPlan.DAO.find("SELECT * FROM lessons_plan where lesson_teacher = ?", name);
+        //只删除计划表中没有讲课的记录，已经讲过的需要保留
+        List<LessonsPlan> lessonsPlans = LessonsPlan.DAO.find("SELECT * FROM lessons_plan where lesson_teacher = ? and state = ? ", name, 0);
         for (int i = 0; i < lessonsPlans.size(); i++) {
             long id = lessonsPlans.get(0).getLong("id");
             String lessonName = lessonsPlans.get(0).get("lesson_name");
