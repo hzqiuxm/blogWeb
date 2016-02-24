@@ -19,6 +19,9 @@ public class ChooseLesson {
     private static final String SJ = "设计";
     private static final String YW = "运维";
     private static final String YD = "移动";
+    private static final String CP = "产品";
+    private static final String CS = "测试";
+
     public List<Lessons> getRandomLesson(String name){
         List<Lessons> finalLessons = new ArrayList<Lessons>();
         int randomSeed;
@@ -33,8 +36,14 @@ public class ChooseLesson {
             lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type in('运维','通用','后端')",0);
         }else if (YD.equalsIgnoreCase(strIdentity)){
             lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type not in('运维')",0);
-        }else {
-            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type not in('设计','移动')",0);
+        }else if(CP.equalsIgnoreCase(strIdentity)){
+            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type in('产品','后端','前端','通用')",0);
+        }else if(CS.equalsIgnoreCase(strIdentity)){
+            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type in('测试','通用')",0);
+        }
+        else {
+            //后端开发岗位的选题来源
+            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type not in('设计','移动','产品')",0);
         }
 
         HashSet<Integer> setnum = null;

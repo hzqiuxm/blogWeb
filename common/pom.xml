@@ -32,7 +32,7 @@
         </dependency>
 
         <dependency>
-            <groupId>fakepath</groupId>
+            <groupId>com.jfinal</groupId>
             <artifactId>jfinal</artifactId>
         </dependency>
 

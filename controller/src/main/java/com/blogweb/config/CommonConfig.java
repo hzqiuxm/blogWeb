@@ -38,10 +38,10 @@ public class CommonConfig extends JFinalConfig {
         //设置404错误页面
         me.setError404View("404.html");
         //设置文件下载地址
-        me.setFileRenderPath("/file/download");
+//        me.setFileRenderPath("/file/download");
         //设置文件上传默认保存路径
 //        PathKit.setWebRootPath("/");
-        me.setUploadedFileSaveDirectory("D:\\javaDev\\mytest\\LxWeb\\web\\upload");
+//        me.setUploadedFileSaveDirectory("D:\\javaDev\\mytest\\LxWeb\\web\\upload");
         //设置URL参数分隔符
         me.setUrlParaSeparator("-");
     }
