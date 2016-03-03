@@ -21,13 +21,13 @@ public class LessonController extends Controller {
     private static final Logger log = Logger.getLogger(LessonController.class);
     public void index(){
         //使用setAttr来设置视图层需要展现的数据
-        setAttr("lessons", Lessons.DAO.find("select * from lessons"));
+        setAttr("lessons", Lessons.dao.find("select * from lessons"));
 //       List<Lessons> lessonses = Lessons.DAO.find("select * from lessons");
         render("show_lessons.jsp");
     }
 
     public void getLessons(){
-        List<Lessons> lessonses = Lessons.DAO.find("select * from lessons");
+        List<Lessons> lessonses = Lessons.dao.find("select * from lessons");
         renderJson(lessonses);
     }
 

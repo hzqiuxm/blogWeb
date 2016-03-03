@@ -5,10 +5,7 @@ import com.blogweb.controller.BlogController;
 import com.blogweb.controller.GlobaInterceptor;
 import com.blogweb.controller.LessonController;
 import com.blogweb.controller.LessonPlanController;
-import com.blogweb.model.Lessons;
-import com.blogweb.model.LessonsEval;
-import com.blogweb.model.LessonsPlan;
-import com.blogweb.model.UserBase;
+import com.blogweb.model._MappingKit;
 import com.jfinal.config.*;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
@@ -27,6 +24,7 @@ public class CommonConfig extends JFinalConfig {
     @Override
     public void configConstant(Constants me) {
 
+
         // 加载少量必要配置，随后可用PropKit.get(...)获取值
         PropKit.use("properties/config.properties");
         //设置开发模式，如果是true，后台会输出Controller、action参数信息
@@ -44,6 +42,7 @@ public class CommonConfig extends JFinalConfig {
 //        me.setUploadedFileSaveDirectory("D:\\javaDev\\mytest\\LxWeb\\web\\upload");
         //设置URL参数分隔符
         me.setUrlParaSeparator("-");
+
     }
 
     /**
@@ -61,6 +60,10 @@ public class CommonConfig extends JFinalConfig {
         //me.add(new 后端配置类());
     }
 
+    public static C3p0Plugin createC3p0Plugin() {
+        return new C3p0Plugin(PropKit.get("jdbcUrl"), PropKit.get("user"), PropKit.get("password").trim());
+    }
+
     /**
      * 配置插件
      * @param me
@@ -68,18 +71,23 @@ public class CommonConfig extends JFinalConfig {
     @Override
     public void configPlugin(Plugins me) {
         // 配置C3p0数据库连接池插件
-        C3p0Plugin c3p0Plugin = new C3p0Plugin(PropKit.get("jdbcUrl"), PropKit.get("user"), PropKit.get("password").trim());
+        C3p0Plugin c3p0Plugin = createC3p0Plugin();
         me.add(c3p0Plugin);
 
         // 配置ActiveRecord插件
         ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
         me.add(arp);
 
+        /* 2.1以后不需要配置表盒模型的映射关系
         //建立表和模型的映射关系，例如：映射user_base表到 UserBase模型
         arp.addMapping("user_base", UserBase.class);
         arp.addMapping("lessons",Lessons.class);
         arp.addMapping("lessons_plan", LessonsPlan.class);
         arp.addMapping("lesson_eval", LessonsEval.class);
+        */
+        // 所有配置在 MappingKit 中搞定
+        _MappingKit.mapping(arp);
+
     }
 
     /**

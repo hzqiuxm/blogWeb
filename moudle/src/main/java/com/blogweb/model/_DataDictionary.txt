@@ -1,0 +1,78 @@
+Table: lesson_eval
+----------------+---------------+------+-----+---------+---------
+ Field          | Type          | Null | Key | Default | Remarks 
+----------------+---------------+------+-----+---------+---------
+ id             | INT(10)       | YES  |     |         |         
+ lesson_plan_id | INT(10)       | YES  |     |         | 用于关联记录,和课程计划表关联
+ eval_des       | VARCHAR(5000) | YES  |     |         |         
+ create_time    | DATETIME(19)  | YES  |     |         |         
+ state          | CHAR(2)       | YES  |     |         |         
+----------------+---------------+------+-----+---------+---------
+
+Table: lessons
+-------------+---------------+------+-----+---------+---------
+ Field       | Type          | Null | Key | Default | Remarks 
+-------------+---------------+------+-----+---------+---------
+ id          | INT(10)       | NO   | PRI |         |         
+ lesson_name | VARCHAR(100)  | YES  |     |         |         
+ lesson_type | CHAR(30)      | YES  |     |         |         
+ lesson_des  | VARCHAR(1000) | YES  |     |         |         
+ create_time | DATETIME(19)  | YES  |     |         |         
+ update_time | DATETIME(19)  | YES  |     |         |         
+ is_cycle    | CHAR(1)       | YES  |     |         | Y:可重复 N：不可重复
+ state       | CHAR(2)       | YES  |     |         | 0可选 1不可选
+ notes       | VARCHAR(255)  | YES  |     |         |         
+-------------+---------------+------+-----+---------+---------
+
+Table: lessons_plan
+----------------+------------------+------+-----+---------+---------
+ Field          | Type             | Null | Key | Default | Remarks 
+----------------+------------------+------+-----+---------+---------
+ id             | INT UNSIGNED(10) | NO   | PRI |         |         
+ lesson_name    | VARCHAR(100)     | YES  |     |         | 和课程表的名字对应，不是最后培训课程的名字。一般这个名字范围有些大
+ lesson_title   | VARCHAR(255)     | YES  |     |         | 本次课程具体的名字，由讲师自己填写的
+ lesson_des     | VARCHAR(1000)    | YES  |     |         | 讲师自己介绍本次课程主要内容，培训受众等
+ lesson_time    | DATE(10)         | YES  |     |         |         
+ lesson_teacher | VARCHAR(50)      | YES  |     |         |         
+ lesson_grade   | CHAR(1)          | YES  |     |         | 不及格，及格，中等，良好，优秀
+ lesson_score   | FLOAT(12)        | YES  |     |         | 听众给讲师打的分数，总分10分，这里取平均分.去除一个最高分去除一个最低分，剩余求平均分
+ lesson_place   | VARCHAR(255)     | YES  |     |         |         
+ create_time    | DATETIME(19)     | YES  |     |         |         
+ update_time    | DATETIME(19)     | YES  |     |         |         
+ state          | CHAR(2)          | YES  |     |         | 0：未开讲 1：已开讲
+ notes          | VARCHAR(255)     | YES  |     |         |         
+----------------+------------------+------+-----+---------+---------
+
+Table: lessons_type
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | YES  |     |         |         
+ type_des | VARCHAR(255) | YES  |     |         |         
+ state    | CHAR(2)      | YES  |     |         |         
+ notes    | VARCHAR(255) | YES  |     |         |         
+----------+--------------+------+-----+---------+---------
+
+Table: user_base
+-------------+---------------+------+-----+---------+---------
+ Field       | Type          | Null | Key | Default | Remarks 
+-------------+---------------+------+-----+---------+---------
+ id          | INT(10)       | NO   | PRI |         |         
+ user_name   | VARCHAR(20)   | YES  |     |         | 用户登录的账号名称
+ user_pwd    | VARCHAR(20)   | YES  |     |         |         
+ sex         | CHAR(1)       | YES  |     |         |         
+ birthday    | DATE(10)      | YES  |     |         |         
+ introduce   | VARCHAR(2000) | YES  |     |         |         
+ addr        | VARCHAR(255)  | YES  |     |         |         
+ qq          | CHAR(12)      | YES  |     |         |         
+ mail        | VARCHAR(50)   | YES  |     |         |         
+ wx_id       | VARCHAR(50)   | YES  |     |         |         
+ real_name   | VARCHAR(50)   | YES  |     |         |         
+ choose_num  | INT(10)       | YES  |     |         | 剩余选课次数  
+ identity    | VARCHAR(50)   | YES  |     |         | 讲师身份类型，不同身份能选到课可能会有所区别
+ create_time | DATETIME(19)  | YES  |     |         |         
+ update_time | DATETIME(19)  | YES  |     |         |         
+ state       | CHAR(2)       | YES  |     |         |         
+ notes       | VARCHAR(255)  | YES  |     |         |         
+-------------+---------------+------+-----+---------+---------
+

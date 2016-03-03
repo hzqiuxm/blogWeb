@@ -19,7 +19,7 @@ public class UserService {
      */
     public int checkUser(String name){
 
-        List<UserBase> userBases = UserBase.DAO.find("select * from user_base where real_name = ?",name);
+        List<UserBase> userBases = UserBase.dao.find("select * from user_base where real_name = ?",name);
         int chooseNum = 0;
         if(userBases.size()<1||userBases == null){
             return NO_TEACHER;
@@ -40,7 +40,7 @@ public class UserService {
      */
     public Boolean checkLessons(String name){
 
-        List<LessonsPlan> lessonsPlans = LessonsPlan.DAO.find("select * from lessons_plan where lesson_teacher = ? and state = ? ",name,0);
+        List<LessonsPlan> lessonsPlans = LessonsPlan.dao.find("select * from lessons_plan where lesson_teacher = ? and state = ? ",name,0);
         if(lessonsPlans.size()>0){
             return false;
         }

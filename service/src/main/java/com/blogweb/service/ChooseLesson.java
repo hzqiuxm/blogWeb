@@ -25,25 +25,25 @@ public class ChooseLesson {
     public List<Lessons> getRandomLesson(String name){
         List<Lessons> finalLessons = new ArrayList<Lessons>();
         int randomSeed;
-        List<UserBase> userBase = UserBase.DAO.find("select * from user_base where real_name = ?",name);
+        List<UserBase> userBase = UserBase.dao.find("select * from user_base where real_name = ?",name);
         String strIdentity = userBase.get(0).get("identity");
 
         List<Lessons> lessonses = null;
         if(SJ.equalsIgnoreCase(strIdentity)){
-            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type in('设计','通用')",0);
+            lessonses = Lessons.dao.find("select * from lessons where state = ? and lesson_type in('设计','通用')",0);
 
         }else if (YW.equalsIgnoreCase(strIdentity)){
-            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type in('运维','通用','后端')",0);
+            lessonses = Lessons.dao.find("select * from lessons where state = ? and lesson_type in('运维','通用','后端')",0);
         }else if (YD.equalsIgnoreCase(strIdentity)){
-            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type not in('运维')",0);
+            lessonses = Lessons.dao.find("select * from lessons where state = ? and lesson_type not in('运维')",0);
         }else if(CP.equalsIgnoreCase(strIdentity)){
-            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type in('产品','后端','前端','通用')",0);
+            lessonses = Lessons.dao.find("select * from lessons where state = ? and lesson_type in('产品','后端','前端','通用')",0);
         }else if(CS.equalsIgnoreCase(strIdentity)){
-            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type in('测试','通用')",0);
+            lessonses = Lessons.dao.find("select * from lessons where state = ? and lesson_type in('测试','通用')",0);
         }
         else {
             //后端开发岗位的选题来源
-            lessonses = Lessons.DAO.find("select * from lessons where state = ? and lesson_type not in('设计','移动','产品')",0);
+            lessonses = Lessons.dao.find("select * from lessons where state = ? and lesson_type not in('设计','移动','产品')",0);
         }
 
         HashSet<Integer> setnum = null;
@@ -93,7 +93,7 @@ public class ChooseLesson {
     public Boolean delOldLesson(String name){
 
         //只删除计划表中没有讲课的记录，已经讲过的需要保留
-        List<LessonsPlan> lessonsPlans = LessonsPlan.DAO.find("SELECT * FROM lessons_plan where lesson_teacher = ? and state = ? ", name, 0);
+        List<LessonsPlan> lessonsPlans = LessonsPlan.dao.find("SELECT * FROM lessons_plan where lesson_teacher = ? and state = ? ", name, 0);
         for (int i = 0; i < lessonsPlans.size(); i++) {
             long id = lessonsPlans.get(0).getLong("id");
             String lessonName = lessonsPlans.get(0).get("lesson_name");
@@ -101,7 +101,7 @@ public class ChooseLesson {
             //更新课程表的课程状态
             int result = Db.update("UPDATE lessons SET state = ?  WHERE is_cycle = ? and lesson_name = ? ", 0, "N", lessonName);
             System.out.println("update result ===="+result);
-            return LessonsPlan.DAO.deleteById(id);
+            return LessonsPlan.dao.deleteById(id);
         }
         return true;
     }
