@@ -1,10 +1,7 @@
 package com.blogweb.config;
 
 
-import com.blogweb.controller.BlogController;
-import com.blogweb.controller.GlobaInterceptor;
-import com.blogweb.controller.LessonController;
-import com.blogweb.controller.LessonPlanController;
+import com.blogweb.controller.*;
 import com.blogweb.model._MappingKit;
 import com.jfinal.config.*;
 import com.jfinal.kit.PropKit;
@@ -33,6 +30,7 @@ public class CommonConfig extends JFinalConfig {
         me.setViewType(ViewType.JSP);
         //设置view层的根目录
         me.setBaseViewPath("/views");
+//        me.setBaseViewPath("/");
         //设置404错误页面
         me.setError404View("404.html");
         //设置文件下载地址
@@ -52,6 +50,7 @@ public class CommonConfig extends JFinalConfig {
     @Override
     public void configRoute(Routes me) {
         // 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
+        me.add("/", IndexController.class);
         me.add("/blog", BlogController.class);
         me.add("/lesson", LessonController.class);
         me.add("/lessonPlan", LessonPlanController.class);
