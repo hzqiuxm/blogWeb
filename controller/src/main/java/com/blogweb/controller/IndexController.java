@@ -8,7 +8,7 @@ import com.jfinal.core.Controller;
 public class IndexController extends Controller {
     public void index(){
         System.out.println("begin ... ... ");
-        render("/index.html");
+        render("index.html");
 
         System.out.println("end !");
     }

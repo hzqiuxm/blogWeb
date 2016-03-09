@@ -16,11 +16,16 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 public class _MappingKit {
 
 	public static void mapping(ActiveRecordPlugin arp) {
-//		arp.addMapping("lesson_eval", "", LessonEval.class);
+		arp.addMapping("lesson_eval", "id", LessonEval.class);
 		arp.addMapping("lessons", "id", Lessons.class);
 		arp.addMapping("lessons_plan", "id", LessonsPlan.class);
-//		arp.addMapping("lessons_type", "", LessonsType.class);
+		arp.addMapping("lessons_type", "id", LessonsType.class);
 		arp.addMapping("user_base", "id", UserBase.class);
+		arp.addMapping("zn_article", "id", ZnArticle.class);
+		arp.addMapping("zn_comment", "id", ZnComment.class);
+		arp.addMapping("zn_lessons", "id", ZnLessons.class);
+		arp.addMapping("zn_lessons_plan", "id", ZnLessonsPlan.class);
+		arp.addMapping("zn_user_base", "id", ZnUserBase.class);
 	}
 }
 
