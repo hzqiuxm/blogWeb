@@ -32,6 +32,11 @@
         </dependency>
 
         <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.jfinal</groupId>
             <artifactId>jfinal</artifactId>
         </dependency>
